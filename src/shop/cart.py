@@ -48,6 +48,7 @@ class Cart:
         if rate <= 0:
             raise ValueError("rate must be positive")
         return round(self.total() / rate, 2)
+
     def most_expensive(self) -> Item | None:
         if not self._items:
             return None

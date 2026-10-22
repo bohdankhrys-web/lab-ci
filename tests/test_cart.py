@@ -1,10 +1,11 @@
-import pytest
 from unittest.mock import Mock
 
-from shop.cart import Cart, Item
+import pytest
 
+from shop.cart import Cart
 
 # --- add ---
+
 
 def test_add_single_item(empty_cart: Cart) -> None:
     empty_cart.add("book", price=200.0)
@@ -34,6 +35,7 @@ def test_add_negative_qty_raises(empty_cart: Cart) -> None:
 
 # --- remove ---
 
+
 def test_remove_existing_item(cart_with_items: Cart) -> None:
     cart_with_items.remove("book")
     assert cart_with_items.items_count() == 4
@@ -46,6 +48,7 @@ def test_remove_missing_item_raises(empty_cart: Cart) -> None:
 
 # --- items_count ---
 
+
 def test_items_count_empty_cart(empty_cart: Cart) -> None:
     assert empty_cart.items_count() == 0
 
@@ -55,6 +58,7 @@ def test_items_count_with_items(cart_with_items: Cart) -> None:
 
 
 # --- total / discount (параметризація + граничні значення) ---
+
 
 @pytest.mark.parametrize(
     ("discount", "expected"),
@@ -85,6 +89,7 @@ def test_total_empty_cart_is_zero(empty_cart: Cart) -> None:
 
 
 # --- total_in (mock, без реальних мережевих запитів) ---
+
 
 def test_total_in_usd_uses_rate_provider() -> None:
     rates = Mock()
@@ -117,7 +122,10 @@ def test_total_in_negative_rate_raises() -> None:
 
     with pytest.raises(ValueError, match="rate"):
         cart.total_in("USD", rates)
+
+
 # --- TDD: most_expensive ---
+
 
 def test_most_expensive_returns_none_for_empty_cart(empty_cart: Cart) -> None:
     assert empty_cart.most_expensive() is None
