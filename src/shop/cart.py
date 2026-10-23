@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Protocol
-
+import os
 
 class RateProvider(Protocol):
     """Джерело курсів валют: скільки гривень коштує 1 одиниця валюти."""
@@ -19,7 +19,7 @@ class Cart:
     def __init__(self) -> None:
         self._items: dict[str, Item] = {}
 
-    def add(self, name: str, price: float, qty: int = 1) -> None:
+    def add( self, name:  str,  price: float , qty: int = 1)  -> None:
         if price < 0:
             raise ValueError("price must be non-negative")
         if qty <= 0:
