@@ -18,6 +18,13 @@ def test_add_increases_qty_for_existing_item(empty_cart: Cart) -> None:
     assert empty_cart.items_count() == 5
 
 
+def test_add_same_name_different_price_keeps_first_price(empty_cart: Cart) -> None:
+    empty_cart.add("book", price=200.0, qty=1)
+    empty_cart.add("book", price=300.0, qty=1)
+    assert empty_cart.items_count() == 2
+    assert empty_cart.total() == pytest.approx(400.0)
+
+
 def test_add_negative_price_raises(empty_cart: Cart) -> None:
     with pytest.raises(ValueError, match="price"):
         empty_cart.add("book", price=-1.0)
