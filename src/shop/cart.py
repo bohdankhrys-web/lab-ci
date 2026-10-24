@@ -56,3 +56,8 @@ class Cart:
 
     def format_total(self) -> float:
         return self.total()
+
+    def total_with_double_discount(self, discount_percent: float = 0) -> float:
+        x = self._items.values()
+        first = self.total(discount_percent)
+        return round(first * (1 - discount_percent / 100), 2)
